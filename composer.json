@@ -1,0 +1,73 @@
+{
+    "name": "mwpd/scaffolder",
+    "description": "Reusable scaffolding library.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alain Schlesser",
+            "email": "alain.schlesser@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MWPD\\Scaffolder\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MWPD\\Scaffolder\\Tests\\": "tests/src"
+        }
+    },
+    "require": {
+        "php": ">=7.2",
+        "composer/spdx-licenses": "^1.5",
+        "mustache/mustache": "^2.13",
+        "webmozart/path-util": "^2.3"
+    },
+    "require-dev": {
+        "g1a/composer-test-scenarios": "^3",
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "mikey179/vfsstream": "^1.6",
+        "php-coveralls/php-coveralls": "^2",
+        "phpunit/phpunit": "^8",
+        "squizlabs/php_codesniffer": "^3"
+    },
+    "scripts": {
+        "phar:install-tools": [
+            "mkdir -p tools",
+            "curl -L https://github.com/humbug/box/releases/download/3.0.0/box.phar -o tools/box",
+            "chmod +x tools/box"
+        ],
+        "phar:build": "env PATH=tools:$PATH box compile",
+        "anaylze": "phpstan",
+        "cs": "phpcs --standard=PSR2 -n src",
+        "cbf": "phpcbf --standard=PSR2 -n src",
+        "unit": "phpunit --colors=always",
+        "lint": "parallel-lint --colors src",
+        "analyze": "phpstan analyze --ansi",
+        "test": [
+            "@lint",
+            "@unit",
+            "@cs",
+            "@analyze"
+        ],
+        "release": [
+            "release VERSION"
+        ],
+        "post-update-cmd": [
+            "dependency-licenses"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true,
+        "platform": {
+            "php": "7.2"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
+}

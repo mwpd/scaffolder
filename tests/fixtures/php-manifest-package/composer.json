@@ -1,0 +1,21 @@
+{
+  "name": "{{ vendorName }}/{{ packageName }}",
+  "description": "{{ description }}",
+  "license": "{{ license }}",
+  "authors": [
+    {
+      "name": "{{ authorName }}",
+      "email": "{{ authorEmail }}"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "{{ rootNamespace }}": "{{ rootFolder }}"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "{{ testsNamespace }}": "{{ testsFolder }}"
+    }
+  }
+}

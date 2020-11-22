@@ -1,0 +1,35 @@
+os: linux
+dist: xenial
+language: php
+
+branches:
+  # Only test the master branch and SemVer tags.
+  only:
+    - master
+    - /^[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+.*$/
+
+jobs:
+  fast_finish: true
+  include:
+    - php: 7.4
+    - php: 7.3
+    - php: 7.2
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+install:
+  - composer install
+
+script:
+  - composer test
+
+after_success:
+  - travis_retry php vendor/bin/php-coveralls -v
+
+before_deploy:
+  - composer phar:install-tools
+  - composer require --no-scripts consolidation/Robo
+  - composer install --prefer-dist --no-dev --no-interaction
+  - composer phar:build
